@@ -25,7 +25,7 @@ jobs:
 
         steps:
             # Step-1: Download the repo content to the runner
-            # Without this, the runner would not have required project files 
+            # Without this step, the runner will not have access to the code in the repo
             - name: Check out repository
               uses: actions/checkout@v4
 
@@ -42,9 +42,9 @@ jobs:
                 pip install -r requirements.txt
 
             # Step - 4 : Execute the automated tests
-            - name: Run automated tests 
+            - name: Run automated tests
               run: python -m pytest -v
-            
-            # Step -5 : Build Docker image
+
+            # Step - 5 : Build the Docker image
             - name: Build Docker image
-              run: docker build -t iris-ml-api:#{{ github.sha }} .
+              run: docker build -t iris-ml-api:${{ github.sha }} .
